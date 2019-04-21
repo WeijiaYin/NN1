@@ -12,8 +12,9 @@ public class Matrix {
 		size = vector.getVector()[0].length;
 	}
 	
-	private void calculateMatrix(Vector vector)
+	public void calculateMatrix(Vector vector)
 	{	
+		matrix = new int[size][size];
 		for(int i = 0; i < size ;i++)
 		{
 			for(int j = 0; j <size; j++)
@@ -30,15 +31,26 @@ public class Matrix {
 			}
 		}
 		
+		System.out.println("T:");
+		for(int i = 0; i < size; i++)
+		{
+			for(int j = 0; j < size; j++)
+			{
+				System.out.print(matrix[i][j]+" ");
+			}
+			System.out.println();
+		}
+		
 	}
 	
-	private boolean testStable(int test[])
+	public boolean testStable(int test[])
 	{
 		List<int[]> results = new ArrayList<int[]>();
 		results.add(test);
 		int result[] = {};
 		while(!results.contains(result)) 
 		{
+			results.add(result);
 			for(int i = 0; i < size; i++)
 			{
 				test[i] = 0;
