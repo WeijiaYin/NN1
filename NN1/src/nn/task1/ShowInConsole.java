@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class ShowInConsole {
 	
-	public static void main(String args[])
+	public ShowInConsole()
 	{
 		Vector vector = new Vector();
 		vector.readVectorFromFile("test.txt");

@@ -17,7 +17,6 @@ public class Vector {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	
 
 	public int[][] getVector() {
 		return vector;
@@ -27,7 +26,7 @@ public class Vector {
 		this.vector = vector;
 	}
 
-	public void readVectorFromFile(String fileName) {
+	public int[][] readVectorFromFile(String fileName) {
 		File file = new File(fileName);
 		if (file.exists()) {
 			try {
@@ -35,8 +34,7 @@ public class Vector {
 				BufferedReader br = new BufferedReader(fileReader);
 				String arrayInfo = br.readLine();
 				String line = null;
-				if(arrayInfo != null)
-				{
+				if (arrayInfo != null) {
 					String arraySize[] = arrayInfo.split(",");
 					vector = new int[Integer.parseInt(arraySize[0])][Integer.parseInt(arraySize[1])];
 				}
@@ -45,20 +43,17 @@ public class Vector {
 					addVector(elements, count);
 					count++;
 				}
-				
+
 				changeElement(vector);
-				
+
 				System.out.println("vector after change");
-				for(int i = 0; i < vector.length; i++)
-				{
-					for(int j = 0; j < vector[0].length ; j++)
-					{
-						System.out.print(vector[i][j]+" ");
+				for (int i = 0; i < vector.length; i++) {
+					for (int j = 0; j < vector[0].length; j++) {
+						System.out.print(vector[i][j] + " ");
 					}
 					System.out.println();
 				}
-				
-				
+
 				br.close();
 				fileReader.close();
 			} catch (FileNotFoundException e) {
@@ -69,6 +64,29 @@ public class Vector {
 				e.printStackTrace();
 			}
 		}
+
+		return vector;
+
+	}
+
+	public int[][] readVectorFromInput(String[] input, int num, int length) {
+		vector = new int[num][length];
+		for (int i = 0; i < num; i++) {
+			String elements[] = input[i].split(",");
+			addVector(elements, i);
+		}
+
+		changeElement(vector);
+
+		System.out.println("vector after change");
+		for (int i = 0; i < vector.length; i++) {
+			for (int j = 0; j < vector[0].length; j++) {
+				System.out.print(vector[i][j] + " ");
+			}
+			System.out.println();
+		}
+
+		return vector;
 
 	}
 
@@ -90,9 +108,8 @@ public class Vector {
 		} else
 			return true;
 	}
-	
-	private void addVector(String[] elements, int num)
-	{
+
+	private void addVector(String[] elements, int num) {
 		for (int i = 0; i < elements.length; i++) {
 			vector[num][i] = Integer.parseInt(elements[i]);
 		}

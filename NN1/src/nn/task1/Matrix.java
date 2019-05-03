@@ -12,7 +12,7 @@ public class Matrix {
 		size = vector.getVector()[0].length;
 	}
 	
-	public void calculateMatrix(Vector vector)
+	public int[][] calculateMatrix(Vector vector)
 	{	
 		matrix = new int[size][size];
 		for(int i = 0; i < size ;i++)
@@ -40,6 +40,7 @@ public class Matrix {
 			}
 			System.out.println();
 		}
+		return matrix;
 		
 	}
 	
