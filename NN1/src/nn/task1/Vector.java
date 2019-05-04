@@ -91,7 +91,7 @@ public class Vector {
 	}
 
 	private void changeElement(int vector[][]) {
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < vector.length; i++) {
 			for (int j = 0; j < vector[i].length; j++) {
 				if (checkValid(vector[i][j])) {
 					if (vector[i][j] == 0)

@@ -23,7 +23,7 @@ public class Matrix {
 					matrix[i][j] = 0;
 				else {
 					matrix[i][j] = 0;
-					for(int k = 0; k < vector.getCount(); k++)
+					for(int k = 0; k < vector.getVector().length; k++)
 					{
 						matrix[i][j] += vector.getVector()[k][i]*vector.getVector()[k][j];
 					}

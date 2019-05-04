@@ -24,22 +24,24 @@ public class Frame extends JFrame {
 	private Matrix matrix;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private int num = 0;
+	private JTextField[] jtf;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Frame frame = new Frame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Frame frame = new Frame();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -54,6 +56,7 @@ public class Frame extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		JPanel panel_1 = new JPanel();
+		JButton btnInput_1 = new JButton("input");
 		panel_1.setLayout(null);
 		panel_2.setLayout(null);
 		contentPane.add(panel_1, "hopfield");
@@ -78,13 +81,13 @@ public class Frame extends JFrame {
 		textField_2.setColumns(10);
 		
 		JButton btnOk_1 = new JButton("ok");
-		btnOk_1.setBounds(255, 23, 45, 23);
-		panel_2.add(btnOk_1);
+		btnOk_1.setBounds(255, 23, 57, 23);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 71, 404, 323);
 		panel_2.add(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		
 		CardLayout cl = (CardLayout)(contentPane.getLayout());
 		cl.show(this.getContentPane(), "hopfield");
 		
@@ -158,7 +161,6 @@ public class Frame extends JFrame {
 				// TODO Auto-generated method stub
 				
 				cl.show(getContentPane(), "input vector");
-				
 			}
 			
 		});
@@ -217,6 +219,68 @@ public class Frame extends JFrame {
 		textArea_1.setBounds(10, 66, 381, 139);
 		panel_1.add(textArea_1);
 		
+		btnOk_1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				num = Integer.parseInt(textField_1.getText());
+				jtf = new JTextField[num];
+				for(int i = 0; i < num; i++)
+				{
+					jtf[i] = new JTextField();
+					panel.add(jtf[i]);
+					panel.revalidate();
+				}
+				
+			}
+			
+		});
+		panel_2.add(btnOk_1);
+		
+		btnInput_1.setBounds(298, 441, 93, 23);
+		btnInput_1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				cl.show(getContentPane(), "hopfield");
+				String[] val = new String[num];
+				for(int i = 0; i < num; i++)
+				{
+					val[i] = jtf[i].getText();
+				}
+				vector = new Vector();
+				int[][] vec = vector.readVectorFromInput(val, num, Integer.parseInt(textField_2.getText()));
+				textArea_1.setLineWrap(true);
+				textArea_1.setEditable(false);
+				for(int i = 0; i < vec.length; i++)
+				{
+					for(int j = 0; j < vec[0].length; j++)
+					{
+						textArea_1.append(String.valueOf(vec[i][j])+" ");
+					}
+					textArea_1.append("\r\n");
+				}
+				matrix = new Matrix(vector);
+				int[][] mat = matrix.calculateMatrix(vector);
+				textArea.setLineWrap(true);
+				textArea.setEditable(false);
+				for(int i = 0; i < mat.length; i++)
+				{
+					for(int j = 0; j < mat.length; j++)
+					{
+						textArea.append(String.valueOf(mat[i][j])+" ");
+					}
+					textArea.append("\r\n");
+				}
+				
+			}
+			
+		});
+		panel_2.add(btnInput_1);
 		
 	}
 }
