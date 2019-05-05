@@ -18,9 +18,13 @@ public class ShowInConsole {
 		case 'F':
 			System.out.println("Please input file path");
 			String filePath = sc.nextLine();
-			vector.readVectorFromFile(filePath);
+			int vect[][] = vector.readVectorFromFile(filePath);
+			System.out.println("The vectors you input(after change 0 to -1):");
+			show(vect);
 			matrix = new Matrix(vector);
-			matrix.calculateMatrix(vector);
+			System.out.println("T:");
+			int matr[][] = matrix.calculateMatrix(vector);
+			show(matr);
 			break;
 		case 'T':
 			System.out.println("How many vectors do you want to input?");
@@ -35,8 +39,12 @@ public class ShowInConsole {
 			}
 			vector = new Vector();
 			int[][] vec = vector.readVectorFromInput(inputss, num, length1);
+			System.out.println("The vectors you input(after change 0 to -1):");
+			show(vec);
 			matrix = new Matrix(vector);
+			System.out.println("T:");
 			int[][] mat = matrix.calculateMatrix(vector);
+			show(mat);
 			break;
 			
 		}
@@ -50,6 +58,18 @@ public class ShowInConsole {
 
 		matrix.testStable(test);
 		
+	}
+	
+	private void show(int[][] matrix)
+	{
+		for(int i = 0; i < matrix.length; i++)
+		{
+			for(int j = 0; j < matrix[0].length; j++)
+			{
+				System.out.print(matrix[i][j]+" ");
+			}
+			System.out.println();
+		}
 	}
 	
 

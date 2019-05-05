@@ -1,7 +1,6 @@
 package nn.task1;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class MainClass {
 
@@ -15,7 +14,7 @@ public class MainClass {
 		case 'Y': Frame frame = new Frame();
 		frame.setVisible(true);
 		break;
-		case 'N':ShowInConsole showInConsole = new ShowInConsole();
+		case 'N':new ShowInConsole();
 			break;
 		default:
 			System.out.println("Wrong input");
