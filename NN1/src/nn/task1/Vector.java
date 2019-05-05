@@ -26,7 +26,7 @@ public class Vector {
 		this.vector = vector;
 	}
 
-	public int[][] readVectorFromFile(String fileName) {
+	public int[][] readVectorFromFile(String fileName) throws WrongInputException {
 		File file = new File(fileName);
 		try {
 			FileReader fileReader = new FileReader(file);
@@ -59,7 +59,7 @@ public class Vector {
 
 	}
 
-	public int[][] readVectorFromInput(String[] input, int num, int length) {
+	public int[][] readVectorFromInput(String[] input, int num, int length) throws WrongInputException {
 		vector = new int[num][length];
 		for (int i = 0; i < num; i++) {
 			String elements[] = input[i].split(",");
@@ -72,7 +72,7 @@ public class Vector {
 
 	}
 
-	private void changeElement(int vector[][]) {
+	private void changeElement(int vector[][]) throws WrongInputException {
 		for (int i = 0; i < vector.length; i++) {
 			for (int j = 0; j < vector[i].length; j++) {
 				if (checkValid(vector[i][j])) {
@@ -83,10 +83,11 @@ public class Vector {
 		}
 	}
 
-	private boolean checkValid(Integer e) {
+	private boolean checkValid(Integer e) throws WrongInputException {
 		if (e != 1 && e != -1 && e != 0) {
 			System.out.println("The vector can only contains 0, -1, 1");
-			return false;
+			throw new WrongInputException("WrongInputException","The vector can only contains 0, -1, 1");
+		//	return false;
 		} else
 			return true;
 	}

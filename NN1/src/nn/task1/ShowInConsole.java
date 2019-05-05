@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class ShowInConsole {
 	
-	public ShowInConsole() throws IOException
+	public ShowInConsole() throws IOException, WrongInputException
 	{
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);

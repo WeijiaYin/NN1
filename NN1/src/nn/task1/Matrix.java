@@ -65,6 +65,7 @@ public class Matrix {
 			count++;
 			if(flag == 1)
 			{
+				count--;
 				break;
 			}
 			if(results.contains(temp))

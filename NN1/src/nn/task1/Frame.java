@@ -111,16 +111,22 @@ public class Frame extends JFrame {
 				if(filePath != null)
 				{
 					vector = new Vector();
-					int[][] vec = vector.readVectorFromFile(filePath);
-					textArea_1.setLineWrap(true);
-					textArea_1.setEditable(false);
-					for(int i = 0; i < vec.length; i++)
-					{
-						for(int j = 0; j < vec[0].length; j++)
+					int[][] vec;
+					try {
+						vec = vector.readVectorFromFile(filePath);
+						textArea_1.setLineWrap(true);
+						textArea_1.setEditable(false);
+						for(int i = 0; i < vec.length; i++)
 						{
-							textArea_1.append(String.valueOf(vec[i][j])+" ");
+							for(int j = 0; j < vec[0].length; j++)
+							{
+								textArea_1.append(String.valueOf(vec[i][j])+" ");
+							}
+							textArea_1.append("\r\n");
 						}
-						textArea_1.append("\r\n");
+					} catch (WrongInputException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 					matrix = new Matrix(vector);
 					int[][] mat = matrix.calculateMatrix(vector);
@@ -241,17 +247,27 @@ public class Frame extends JFrame {
 					val[i] = jtf[i].getText();
 				}
 				vector = new Vector();
-				int[][] vec = vector.readVectorFromInput(val, num, Integer.parseInt(textField_2.getText()));
-				textArea_1.setLineWrap(true);
-				textArea_1.setEditable(false);
-				for(int i = 0; i < vec.length; i++)
-				{
-					for(int j = 0; j < vec[0].length; j++)
+				int[][] vec;
+				try {
+					vec = vector.readVectorFromInput(val, num, Integer.parseInt(textField_2.getText()));
+					textArea_1.setLineWrap(true);
+					textArea_1.setEditable(false);
+					for(int i = 0; i < vec.length; i++)
 					{
-						textArea_1.append(String.valueOf(vec[i][j])+" ");
+						for(int j = 0; j < vec[0].length; j++)
+						{
+							textArea_1.append(String.valueOf(vec[i][j])+" ");
+						}
+						textArea_1.append("\r\n");
 					}
-					textArea_1.append("\r\n");
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (WrongInputException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+			
 				matrix = new Matrix(vector);
 				int[][] mat = matrix.calculateMatrix(vector);
 				textArea.setLineWrap(true);

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class MainClass {
 
-	public static void main(String args[]) throws IOException
+	public static void main(String args[]) throws IOException, WrongInputException
 	{
 		System.out.println("Do you want to do it in frame? input Y if yes, input N if no");
 		char y = (char) System.in.read();
