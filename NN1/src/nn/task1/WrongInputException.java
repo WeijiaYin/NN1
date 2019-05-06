@@ -22,6 +22,7 @@ public class WrongInputException extends Exception{
 		super();
 		this.retCd = retCd;
 		this.msgDes = msgDes;
+		System.out.println(msgDes);
 	}
  
 	public String getRetCd() {

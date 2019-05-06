@@ -36,8 +36,14 @@ public class Matrix {
 		
 	}
 	
-	public boolean testStable(int test[])
+	public boolean testStable(int test[]) throws WrongInputException
 	{
+		if(test.length != matrix.length)
+			throw new WrongInputException("Wrong input exception", "vector size doesn't match");
+		for(int i = 0; i < test.length; i++) {
+			if(!(test[i] == 1 || test[i] == -1))
+				throw new WrongInputException("Wrong input exception", "the elements should only contain 1, -1");
+		}
 		int flag = 0;
 		int count = 0;
 		int temp1[]= new int[test.length];

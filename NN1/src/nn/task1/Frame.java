@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.CardLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
@@ -127,6 +128,7 @@ public class Frame extends JFrame {
 					} catch (WrongInputException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						JOptionPane.showMessageDialog(null, e.getMsgDes(), e.getMsgDes(), JOptionPane.ERROR_MESSAGE);
 					}
 					matrix = new Matrix(vector);
 					int[][] mat = matrix.calculateMatrix(vector);
@@ -189,11 +191,18 @@ public class Frame extends JFrame {
 					{
 						t1[i] = Integer.parseInt(t[i]);
 					}
-					boolean result = matrix.testStable(t1);
-					if(result)
-						label_1.setText("stable");
-					else
-						label_1.setText("not stable");
+					boolean result;
+					try {
+						result = matrix.testStable(t1);
+						if(result)
+							label_1.setText("stable");
+						else
+							label_1.setText("not stable");
+					} catch (WrongInputException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, e1.getMsgDes(), e1.getMsgDes(), JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				
 			}
@@ -266,6 +275,7 @@ public class Frame extends JFrame {
 				} catch (WrongInputException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, e.getMsgDes(), e.getMsgDes(), JOptionPane.ERROR_MESSAGE);
 				}
 			
 				matrix = new Matrix(vector);

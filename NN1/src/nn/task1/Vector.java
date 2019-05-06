@@ -28,17 +28,24 @@ public class Vector {
 
 	public int[][] readVectorFromFile(String fileName) throws WrongInputException {
 		File file = new File(fileName);
+		int cols = 0;
+		int rows = 0;
 		try {
 			FileReader fileReader = new FileReader(file);
+			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(fileReader);
 			String arrayInfo = br.readLine();
 			String line = null;
 			if (arrayInfo != null) {
 				String arraySize[] = arrayInfo.split(",");
-				vector = new int[Integer.parseInt(arraySize[0])][Integer.parseInt(arraySize[1])];
+				rows = Integer.parseInt(arraySize[0]);
+				cols = Integer.parseInt(arraySize[1]);
+				vector = new int[rows][cols];
 			}
 			while ((line = br.readLine()) != null) {
 				String elements[] = line.split(",");
+				if(elements.length != cols)
+					throw new WrongInputException("WrongInputException", "vector size doesn't match");
 				addVector(elements, count);
 				count++;
 			}
@@ -63,6 +70,8 @@ public class Vector {
 		vector = new int[num][length];
 		for (int i = 0; i < num; i++) {
 			String elements[] = input[i].split(",");
+			if(elements.length != length)
+				throw new WrongInputException("Wrong input Exception", "vector size doesn't match");
 			addVector(elements, i);
 		}
 
@@ -84,11 +93,9 @@ public class Vector {
 	}
 
 	private boolean checkValid(Integer e) throws WrongInputException {
-		if (e != 1 && e != -1 && e != 0) {
-			System.out.println("The vector can only contains 0, -1, 1");
+		if (e != 1 && e != -1 && e != 0) 
 			throw new WrongInputException("WrongInputException","The vector can only contains 0, -1, 1");
-		//	return false;
-		} else
+		else
 			return true;
 	}
 
