@@ -102,7 +102,10 @@ public class Frame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				
+				textArea_1.setEditable(false);
+				textArea.setEditable(false);
+				textArea_1.setText("");
+				textArea.setText("");
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				int returnVal = fileChooser.showOpenDialog(fileChooser);
@@ -116,7 +119,6 @@ public class Frame extends JFrame {
 					try {
 						vec = vector.readVectorFromFile(filePath);
 						textArea_1.setLineWrap(true);
-						textArea_1.setEditable(false);
 						for(int i = 0; i < vec.length; i++)
 						{
 							for(int j = 0; j < vec[0].length; j++)
@@ -127,13 +129,17 @@ public class Frame extends JFrame {
 						}
 					} catch (WrongInputException e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+					//	e.printStackTrace();
 						JOptionPane.showMessageDialog(null, e.getMsgDes(), e.getMsgDes(), JOptionPane.ERROR_MESSAGE);
+						return;
 					}
 					matrix = new Matrix(vector);
 					int[][] mat = matrix.calculateMatrix(vector);
+					if(matrix.getFlag() == 0)
+						lblT.setText("T = ");
+					else
+						lblT.setText("T = 1/"+ String.valueOf(vector.getVector().length));
 					textArea.setLineWrap(true);
-					textArea.setEditable(false);
 					for(int i = 0; i < mat.length; i++)
 					{
 						for(int j = 0; j < mat.length; j++)
@@ -200,8 +206,9 @@ public class Frame extends JFrame {
 							label_1.setText("not stable");
 					} catch (WrongInputException e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					//	e1.printStackTrace();
 						JOptionPane.showMessageDialog(null, e1.getMsgDes(), e1.getMsgDes(), JOptionPane.ERROR_MESSAGE);
+						return;
 					}
 				}
 				
@@ -228,6 +235,7 @@ public class Frame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
+				panel.removeAll();
 				num = Integer.parseInt(textField_1.getText());
 				jtf = new JTextField[num];
 				for(int i = 0; i < num; i++)
@@ -249,6 +257,10 @@ public class Frame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
+				textArea_1.setEditable(false);
+				textArea.setEditable(false);
+				textArea_1.setText("");
+				textArea.setText("");
 				cl.show(getContentPane(), "hopfield");
 				String[] val = new String[num];
 				for(int i = 0; i < num; i++)
@@ -260,7 +272,6 @@ public class Frame extends JFrame {
 				try {
 					vec = vector.readVectorFromInput(val, num, Integer.parseInt(textField_2.getText()));
 					textArea_1.setLineWrap(true);
-					textArea_1.setEditable(false);
 					for(int i = 0; i < vec.length; i++)
 					{
 						for(int j = 0; j < vec[0].length; j++)
@@ -269,19 +280,23 @@ public class Frame extends JFrame {
 						}
 						textArea_1.append("\r\n");
 					}
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+//				} catch (NumberFormatException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
 				} catch (WrongInputException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+			//		e.printStackTrace();
 					JOptionPane.showMessageDialog(null, e.getMsgDes(), e.getMsgDes(), JOptionPane.ERROR_MESSAGE);
+					return;
 				}
 			
 				matrix = new Matrix(vector);
 				int[][] mat = matrix.calculateMatrix(vector);
+				if(matrix.getFlag() == 0)
+					lblT.setText("T = ");
+				else
+					lblT.setText("T = 1/"+ String.valueOf(vector.getVector().length));
 				textArea.setLineWrap(true);
-				textArea.setEditable(false);
 				for(int i = 0; i < mat.length; i++)
 				{
 					for(int j = 0; j < mat.length; j++)

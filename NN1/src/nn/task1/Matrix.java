@@ -6,7 +6,18 @@ import java.util.List;
 
 public class Matrix {
 	private int matrix[][];
-	private int size;
+	private int size = 0;
+	private int flag = 0;
+	private int N = 0;
+	
+	
+	public int getFlag() {
+		return flag;
+	}
+
+	public void setflag(int flag) {
+		this.flag = flag;
+	}
 	
 	public Matrix(Vector vector)
 	{
@@ -15,6 +26,8 @@ public class Matrix {
 	
 	public int[][] calculateMatrix(Vector vector)
 	{	
+		flag = 0;
+		N = vector.getVector().length;
 		matrix = new int[size][size];
 		for(int i = 0; i < size ;i++)
 		{
@@ -28,6 +41,19 @@ public class Matrix {
 					{
 						matrix[i][j] += vector.getVector()[k][i]*vector.getVector()[k][j];
 					}
+					if(matrix[i][j] % N != 0)
+						flag = 1;
+				}
+			}
+		}
+		
+		if(flag == 0)
+		{
+			for(int i = 0; i < size; i++)
+			{
+				for(int j = 0; j < size; j++)
+				{
+					matrix[i][j] = matrix[i][j] / N;
 				}
 			}
 		}
@@ -41,13 +67,18 @@ public class Matrix {
 		if(test.length != matrix.length)
 			throw new WrongInputException("Wrong input exception", "vector size doesn't match");
 		for(int i = 0; i < test.length; i++) {
-			if(!(test[i] == 1 || test[i] == -1))
-				throw new WrongInputException("Wrong input exception", "the elements should only contain 1, -1");
+			if(!(test[i] == 1 || test[i] == -1 || test[i] == 0))
+				throw new WrongInputException("Wrong input exception", "the elements should only contain 1, -1, 0");
+			if(test[i] == 0)
+				test[i] = -1;
 		}
 		int flag = 0;
-		int count = 0;
-		int temp1[]= new int[test.length];
-		int temp2[] = test;
+		int temp1[] = new int[test.length];
+		int temp2[] = new int[test.length];
+		for(int i = 0; i< test.length; i++)
+		{
+			temp2[i] = test[i]; 
+		}
 		List<int[]> results = new ArrayList<int[]>();
 		int temp[] = new int[test.length];
 		results.add(test);
@@ -68,12 +99,8 @@ public class Matrix {
 				else
 					temp[k] = -1;
 			}
-			count++;
 			if(flag == 1)
-			{
-				count--;
 				break;
-			}
 			if(results.contains(temp))
 			{
 				flag = 1;
@@ -89,9 +116,8 @@ public class Matrix {
 		if(Arrays.equals(temp1, test) || Arrays.equals(temp, test))
 		{
 			System.out.println("Stable");
-			if(Arrays.equals(temp, test))
-				System.out.println("Resulted in "+ String.valueOf(count)+" iteration(s)");
-			else {
+			if(!Arrays.equals(temp, test))
+			{
 				System.out.println("Resulted in two vector loops");
 				for(int i = 0; i < temp.length; i++)
 				{
@@ -107,9 +133,8 @@ public class Matrix {
 		}
 		else {
 			System.out.println("Not Stable");
-			if(Arrays.equals(temp, temp1)) 
-				System.out.println("Resulted in "+ String.valueOf(count)+" iteration(s)");
-			else {
+			if(!Arrays.equals(temp, temp1)) 
+			{
 				System.out.println("Resulted in two vector loops");
 				for(int i = 0; i < temp1.length; i++)
 				{

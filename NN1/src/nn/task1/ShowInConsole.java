@@ -22,8 +22,11 @@ public class ShowInConsole {
 			System.out.println("The vectors you input(after change 0 to -1):");
 			show(vect);
 			matrix = new Matrix(vector);
-			System.out.println("T:");
 			int matr[][] = matrix.calculateMatrix(vector);
+			if(matrix.getFlag() == 0)
+				System.out.println("T = ");
+			else
+				System.out.println("T = 1/"+ String.valueOf(vector.getVector().length));
 			show(matr);
 			break;
 		case 'T':
@@ -42,8 +45,11 @@ public class ShowInConsole {
 			System.out.println("The vectors you input(after change 0 to -1):");
 			show(vec);
 			matrix = new Matrix(vector);
-			System.out.println("T:");
 			int[][] mat = matrix.calculateMatrix(vector);
+			if(matrix.getFlag() == 0)
+				System.out.println("T = ");
+			else
+				System.out.println("T = 1/"+ String.valueOf(vector.getVector().length));
 			show(mat);
 			break;
 			
